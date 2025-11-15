@@ -1,0 +1,35 @@
+// ====================================================================
+// POWER QUERY (M-CODE) LOGIC SUMMARY
+// This outlines the steps performed in the Power Query Editor before DAX modeling.
+// ====================================================================
+
+// 1. Source: Import CSV file (e.g., Churn_Modelling.csv)
+
+// 2. Removed Columns:
+//    - RowNumber, CustomerId, Surname (Irrelevant unique identifiers)
+
+// 3. Changed Type (Initial):
+//    - Ensured key financial columns (Balance, EstimatedSalary) are Decimal/Currency.
+//    - Ensured key categorical columns (Geography, Gender) are Text.
+
+// 4. Added Conditional Columns (Simulating Feature Engineering):
+//    - Column Name: 'Exited Status'
+//      - IF [Exited] = 1 THEN "Churned" ELSE "Retained"
+//    - Column Name: 'Active Status'
+//      - IF [IsActiveMember] = 1 THEN "Active" ELSE "Inactive"
+//    - Column Name: 'Age Group' (Implemented using the Python script's logic)
+//      - IF [Age] < 31 THEN "18-30 (Young)"
+//      - ELSE IF [Age] < 46 THEN "31-45 (Mid-Career)"
+//      - ELSE IF [Age] < 61 THEN "46-60 (High Risk)"
+//      - ELSE "60+ (Retired)"
+//    - Column Name: 'Tenure Group' (Implemented using the Python script's logic)
+//      - IF [Tenure] < 2 THEN "0-1 Year (New)"
+//      - ELSE IF [Tenure] < 5 THEN "2-4 Years (Early)"
+//      - ELSE IF [Tenure] < 8 THEN "5-7 Years (Stable)"
+//      - ELSE "8+ Years (Loyalty)"
+
+// 5. Removed Original Binary Columns:
+//    - Exited, IsActiveMember, HasCrCard (as they are now replaced by clearer Text columns)
+
+// 6. Rename Final Table:
+//    - Rename the final table to 'Bank_Churn_Model_Cleaned'
